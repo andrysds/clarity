@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRequestBody(t *testing.T) {
@@ -17,23 +18,17 @@ func TestRequestBody(t *testing.T) {
 		map[string]interface{}{"key": "value"},
 	)
 
-	body, _ = json.Marshal(data)
-	request, _ = http.NewRequest("GET", "http://localhost", bytes.NewBuffer(body))
-	result, err = RequestBody(request.Body)
-	if !reflect.DeepEqual(result, data) {
-		t.Error("`result` should be equals `data`")
-	}
-	if err != nil {
-		t.Error("`err` should be nil")
-	}
-
+	// error on reading body
 	body = []byte("errror")
 	request, _ = http.NewRequest("GET", "http://localhost", bytes.NewBuffer(body))
 	result, err = RequestBody(request.Body)
-	if reflect.DeepEqual(result, data) {
-		t.Error("`result` should not be equals `data`")
-	}
-	if err == nil {
-		t.Error("`err` should not be nil")
-	}
+	assert.NotEqual(t, result, data)
+	assert.NotNil(t, err)
+
+	// normal case
+	body, _ = json.Marshal(data)
+	request, _ = http.NewRequest("GET", "http://localhost", bytes.NewBuffer(body))
+	result, err = RequestBody(request.Body)
+	assert.Equal(t, result, data)
+	assert.Nil(t, err)
 }

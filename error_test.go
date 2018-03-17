@@ -3,37 +3,17 @@ package clarity
 import (
 	"errors"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPanicIfError(t *testing.T) {
-	var result bool
 	message := "error message"
+	err := errors.New("error")
+
+	// err is no nil
+	assert.Panics(t, func() { PanicIfError(err, message) })
 
 	// err is nil
-	result = SafelyRunPanicIfError(nil, message)
-	if result {
-		t.Error("should did panic")
-	}
-
-	// err is not nil
-	result = SafelyRunPanicIfError(errors.New("error"), message)
-	if !result {
-		t.Error("should did panic")
-	}
-}
-
-func SafelyRunPanicIfError(err error, message string) bool {
-	status := false
-	var r interface{}
-
-	func() {
-		defer func() {
-			if r = recover(); r != nil {
-				status = true
-			}
-		}()
-		PanicIfError(err, message)
-	}()
-
-	return status
+	assert.NotPanics(t, func() { PanicIfError(nil, message) })
 }

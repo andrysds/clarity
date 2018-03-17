@@ -2,8 +2,9 @@ package clarity
 
 import (
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRequestParamTest(t *testing.T) {
@@ -18,44 +19,26 @@ func TestRequestParamTest(t *testing.T) {
 	// context: missing param
 	// string param
 	result = RequestParam(URL, "miss", defaults["s"]).(string)
-	if result != defaults["s"] {
-		t.Error("result:", result)
-		t.Error("result should be equals ", defaults["s"])
-	}
+	assert.Equal(t, result, defaults["s"])
 
 	// int param
 	result = RequestParam(URL, "miss", defaults["i"]).(int)
-	if result != defaults["i"] {
-		t.Error("result:", result)
-		t.Error("result should be equals ", defaults["i"])
-	}
+	assert.Equal(t, result, defaults["i"])
 
 	// array param
 	result = RequestParam(URL, "miss", defaults["a"]).([]string)
-	if !reflect.DeepEqual(result, defaults["a"]) {
-		t.Error("result:", result)
-		t.Error("result should be equals ", defaults["a"])
-	}
+	assert.Equal(t, result, defaults["a"])
 
 	// context: existing param
 	// string param
 	result = RequestParam(URL, "key", defaults["s"]).(string)
-	if result != "value" {
-		t.Error("result:", result)
-		t.Error("result should be equals \"value\"")
-	}
+	assert.Equal(t, result, "value")
 
 	// int param
 	result = RequestParam(URL, "number", defaults["i"]).(int)
-	if result != 1 {
-		t.Error("result:", result)
-		t.Error("result should be equals 1")
-	}
+	assert.Equal(t, result, 1)
 
 	// array param
 	result = RequestParam(URL, "array", defaults["a"]).([]string)
-	if !reflect.DeepEqual(result, []string{"elem1", "elem2"}) {
-		t.Error("result:", result)
-		t.Error("result should be equals []string{'elem1', 'elem2'}")
-	}
+	assert.Equal(t, result, []string{"elem1", "elem2"})
 }

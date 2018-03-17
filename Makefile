@@ -11,4 +11,4 @@ test:
 	go tool cover -html=coverage.out -o coverage.html
 
 dep:
-	dep ensure -update
+	dep ensure -vendor-only
