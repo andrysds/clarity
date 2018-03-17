@@ -1,0 +1,8 @@
+language: go
+
+sudo: false
+
+script:
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - make dep
+  - make build
