@@ -8,6 +8,12 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/go-sql-driver/mysql"
+  packages = ["."]
+  revision = "a0583e0143b1624142adab07e0e97fe106d99561"
+  version = "v1.3"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -22,6 +28,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "dbc03d7c9dd4e54b6993c8ece59c3174becb58bd828e500cf8ad825e340278c4"
+  inputs-digest = "fbe10ea77255a5a971151a2a662ec7eeef3c31b8ff412969f79c4c61b8e3666f"
   solver-name = "gps-cdcl"
   solver-version = 1

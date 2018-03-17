@@ -1,12 +1,15 @@
-package clarity
+package httputil
 
 import (
 	"encoding/base64"
 	"errors"
+	"net/http"
 	"strings"
 )
 
-func BasicAuthorization(authorization, username, password string) error {
+// Do basic authorization for incoming http request
+func BasicAuthorization(header http.Header, username, password string) error {
+	authorization := header.Get("Authorization")
 	token := strings.SplitN(authorization, " ", 2)
 	if len(token) != 2 || token[0] != "Basic" {
 		return errors.New("Invalid Token")

@@ -1,4 +1,4 @@
-package clarity
+package httputil
 
 import (
 	"net/url"
@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Get parameters from incoming http request url and refine it with a default value.
 func RequestParam(URL *url.URL, key string, defaultValue interface{}) interface{} {
 	switch defaultValue.(type) {
 	case []string:
