@@ -8,7 +8,12 @@
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
+coverage*
 *.out
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
+
+# Etc
+.tags
+vendor
