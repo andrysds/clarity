@@ -22,7 +22,7 @@ func TestPanicIfError(t *testing.T) {
 
 func ExamplePanicIfError() *sql.DB {
 	db, err := sql.Open("mysql", "user:password@/dbname")
-	// Calls Panic if there is error on connecting mysql
+	// Calls Panic if there is error on connecting mysql.
 	PanicIfError(err, "error on connecting mysql")
 	return db
 }

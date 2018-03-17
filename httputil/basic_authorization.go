@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// Do basic authorization for incoming http request
+// Do basic authorization for incoming http request.
 func BasicAuthorization(header http.Header, username, password string) error {
 	authorization := header.Get("Authorization")
 	token := strings.SplitN(authorization, " ", 2)

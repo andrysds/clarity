@@ -6,3 +6,6 @@ script:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - make dep
   - make build
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

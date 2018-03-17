@@ -43,7 +43,7 @@ func ExampleRequestBody() {
 		},
 	)
 	bodyJSON, _ := json.Marshal(data)
-	request, _ := http.NewRequest("GET", "http://localhost", bytes.NewBuffer(bodyJSON))
+	request, _ := http.NewRequest("POST", "http://localhost", bytes.NewBuffer(bodyJSON))
 	body, err := RequestBody(request.Body)
 	fmt.Println(body, err)
 }
