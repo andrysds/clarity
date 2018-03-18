@@ -1,7 +1,6 @@
 package httputil
 
 import (
-	"fmt"
 	"net/url"
 	"testing"
 
@@ -42,10 +41,4 @@ func TestRequestParamTest(t *testing.T) {
 	// array param
 	result = RequestParam(URL, "array", defaults["a"]).([]string)
 	assert.Equal(t, result, []string{"elem1", "elem2"})
-}
-
-func ExampleRequestParam() {
-	URL, _ := url.Parse("http://localhost?key=value")
-	key := RequestParam(URL, "key", "default").(string)
-	fmt.Println(key)
 }

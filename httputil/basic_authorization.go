@@ -7,8 +7,22 @@ import (
 	"strings"
 )
 
-// Do basic authorization for incoming http request.
-func BasicAuthorization(header http.Header, username, password string) error {
+// BasicAuthorizer is where you store credential for basic authorization
+type BasicAuthorizer struct {
+	Username string
+	Password string
+}
+
+// NewBasicAuthorizer prepare an instance of BasicAuthorizer
+func NewBasicAuthorizer(username, password string) *BasicAuthorizer {
+	return &BasicAuthorizer{
+		Username: username,
+		Password: password,
+	}
+}
+
+// Authorize do basic authorization
+func (b *BasicAuthorizer) Authorize(header http.Header) error {
 	authorization := header.Get("Authorization")
 	token := strings.SplitN(authorization, " ", 2)
 	if len(token) != 2 || token[0] != "Basic" {
@@ -21,8 +35,8 @@ func BasicAuthorization(header http.Header, username, password string) error {
 	}
 
 	credential := strings.SplitN(string(decoded), ":", 2)
-	if len(credential) != 2 || credential[0] != username ||
-		credential[1] != password {
+	if len(credential) != 2 || credential[0] != b.Username ||
+		credential[1] != b.Password {
 		return errors.New("Wrong Credential")
 	}
 

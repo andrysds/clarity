@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-// Read and unmarshal incoming http request body.
+// RequestBody reads and unmarshals incoming http request body.
 func RequestBody(bodyReader io.Reader) (interface{}, error) {
 	var data interface{}
 	body, _ := ioutil.ReadAll(bodyReader)

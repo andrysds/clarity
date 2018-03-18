@@ -4,7 +4,7 @@ package errutil
 
 import "fmt"
 
-// Calls Panic if error is not nil.
+// PanicIfError calls panic if the given error is not nil
 func PanicIfError(err error, message string) {
 	if err != nil {
 		panic(fmt.Sprintf("%s: %s", message, err))

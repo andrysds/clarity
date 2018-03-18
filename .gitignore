@@ -16,4 +16,5 @@ coverage*
 
 # Etc
 .tags
+tmp
 vendor

@@ -12,9 +12,11 @@
 //   )
 //
 //   func HandleRequest(w *http.ResponseWriter, r *http.Request) {
-//     username := os.Getenv("USERNAME")
-//     password := os.Getenv("PASSWORD")
-//     err := httputil.BasicAuthorization(r.Header, username, password)
+//     authorizer := httputil.NewBasicAuthorizer(
+//         os.Getenv("USERNAME"),
+//         os.Getenv("PASSWORD"),
+//     )
+//     err := authorizer.Authorize(r.Header)
 //     if err != nil {
 //       fmt.Println(err)
 //       return

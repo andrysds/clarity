@@ -18,10 +18,19 @@ Package `errutil` provides a set of utilities for handling error in Go. For exam
 
 Example:
 ```go
-db, err := sql.Open("mysql", "user:password@/dbname")
-// Calls Panic if there is error on connecting mysql
-PanicIfError(err, "error on connecting mysql")
-return db
+import (
+	"database/sql"
+
+	"github.com/andrysds/clarity/errutil"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func ExamplePanicIfError() *sql.DB {
+	db, err := sql.Open("mysql", "user:password@/dbname")
+	// Calls Panic if there is error on connecting mysql.
+	errutil.PanicIfError(err, "error on connecting mysql")
+	return db
+}
 ```
 
 ### httputil
@@ -40,9 +49,11 @@ import (
 )
 
 func HandleRequest(w *http.ResponseWriter, r *http.Request) {
-  username := os.Getenv("USERNAME")
-  password := os.Getenv("PASSWORD")
-  err := httputil.BasicAuthorization(r.Header, username, password)
+  authorizer := httputil.NewBasicAuthorizer(
+      os.Getenv("USERNAME"),
+      os.Getenv("PASSWORD"),
+  )
+  err := authorizer.Authorize(r.Header)
   if err != nil {
     fmt.Println(err)
     return
