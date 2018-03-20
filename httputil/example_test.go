@@ -30,7 +30,8 @@ func ExampleRequestBody() {
 	)
 	bodyJSON, _ := json.Marshal(data)
 	request, _ := http.NewRequest("POST", "http://localhost", bytes.NewBuffer(bodyJSON))
-	body, err := httputil.RequestBody(request.Body)
+	var body interface{}
+	err := httputil.RequestBody(request.Body, &body)
 	fmt.Println(body, err)
 }
 

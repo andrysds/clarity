@@ -23,14 +23,14 @@ func TestRequestBody(t *testing.T) {
 	// error on reading body
 	body = []byte("errror")
 	request, _ = http.NewRequest("GET", "http://localhost", bytes.NewBuffer(body))
-	result, err = RequestBody(request.Body)
+	err = RequestBody(request.Body, &result)
 	assert.NotEqual(t, result, data)
 	assert.NotNil(t, err)
 
 	// normal case
 	body, _ = json.Marshal(data)
 	request, _ = http.NewRequest("GET", "http://localhost", bytes.NewBuffer(body))
-	result, err = RequestBody(request.Body)
+	err = RequestBody(request.Body, &result)
 	assert.Equal(t, result, data)
 	assert.Nil(t, err)
 }

@@ -61,7 +61,8 @@ func HandleRequest(w *http.ResponseWriter, r *http.Request) {
 
   paramKey := httputil.RequestParam(r.URL, "key", "default").(string)
 
-  requestBody, err := httputil.RequestBody(r.Body)
+  var requestBody interface{}
+  err = httputil.RequestBody(r.Body, &requestBody)
   if err != nil {
     fmt.Println(err)
     return
