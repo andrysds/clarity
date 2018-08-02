@@ -17,3 +17,14 @@ func TestPanicIfError(t *testing.T) {
 	// err is nil
 	assert.NotPanics(t, func() { PanicIfError(nil, message) })
 }
+
+func TestPrintIfError(t *testing.T) {
+	message := "error message"
+	err := errors.New("error")
+
+	// err is no nil
+	PrintIfError(err, message)
+
+	// err is nil
+	PrintIfError(nil, message)
+}
