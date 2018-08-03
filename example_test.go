@@ -24,6 +24,19 @@ func ExampleBasicAuthorizer() {
 	fmt.Println(err)
 }
 
+func ExampleMapJoin() {
+	a := map[string]string{
+		"first name": "andrys",
+		"last name":  "silalahi",
+	}
+	b := map[string]string{
+		"github":    "andrysds",
+		"instagram": "andrysds_",
+	}
+	c := clarity.MapJoin(a, b)
+	fmt.Println(c)
+}
+
 func ExamplePanicIfError() *sql.DB {
 	db, err := sql.Open("mysql", "user:password@/dbname")
 	clarity.PanicIfError(err, "error on connecting mysql")

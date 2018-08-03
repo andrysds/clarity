@@ -21,7 +21,6 @@ func TestMapJoin(t *testing.T) {
 		"github":     "andrysds",
 		"instagram":  "andrysds_",
 	}
-
-	MapJoin(a, b)
-	assert.Equal(t, c, a)
+	d := MapJoin(a, b)
+	assert.Equal(t, c, d)
 }
