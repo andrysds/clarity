@@ -1,6 +1,9 @@
 package clarity
 
 import (
+	"bytes"
+	"encoding/json"
+	"net/http"
 	"net/url"
 	"testing"
 

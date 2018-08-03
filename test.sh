@@ -3,15 +3,10 @@
 echo "mode: atomic" > coverage.out
 
 PACKAGES=`go list ./...`
-ROOT="github.com/andrysds/clarity"
 
 EXIT_CODE=0
 
 for PKG in $PACKAGES; do
-  if [ $PKG = $ROOT ]; then
-    continue
-  fi
-
   echo $PKG
   echo $ROOT
   go test -race -v -coverprofile=coverprofile.out -covermode=atomic $PKG; __EXIT_CODE__=$?
