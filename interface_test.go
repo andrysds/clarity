@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestConvert(t *testing.T) {
+func TestIConvert(t *testing.T) {
 	var source, result map[string]map[string]int
 	source = map[string]map[string]int{
 		"parent1": map[string]int{"child": 0},
@@ -21,6 +21,6 @@ func TestConvert(t *testing.T) {
 	json.Unmarshal(byteData, &itf)
 
 	// converting
-	Convert(itf, &result)
+	IConvert(itf, &result)
 	assert.Equal(t, source, result)
 }
