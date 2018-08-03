@@ -51,13 +51,8 @@ func ExamplePrintIfError() {
 }
 
 func ExampleRequestBody() {
-	data := map[string]interface{}(
-		map[string]interface{}{
-			"key": "value",
-		},
-	)
-	bodyJSON, _ := json.Marshal(data)
-	request, _ := http.NewRequest("POST", "http://localhost", bytes.NewBuffer(bodyJSON))
+	byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
+	request, _ := http.NewRequest("POST", "http://localhost", bytes.NewBuffer(byt))
 	var body interface{}
 	err := clarity.RequestBody(request.Body, &body)
 	fmt.Println(body, err)
