@@ -1,4 +1,4 @@
-package itfutil
+package clarity
 
 import "encoding/json"
 

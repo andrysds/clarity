@@ -1,6 +1,4 @@
-// Package errutil provides a set of utilities for handling error in Go.
-// For example, calls Panic if there is error on initiating you project's database.
-package errutil
+package clarity
 
 import "fmt"
 

@@ -1,18 +1,33 @@
-package httputil_test
+package clarity_test
 
 import (
 	"bytes"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
 
-	"github.com/andrysds/clarity/httputil"
+	"github.com/andrysds/clarity"
+	_ "github.com/go-sql-driver/mysql"
 )
 
+func ExamplePanicIfError() *sql.DB {
+	db, err := sql.Open("mysql", "user:password@/dbname")
+	clarity.PanicIfError(err, "error on connecting mysql")
+	return db
+}
+
+func ExamplePrintIfError() *sql.DB {
+	byt := []byte(`{"num":6.13,"strs":["a","b"]}`)
+	var dat map[string]interface{}
+	err := json.Unmarshal(byt, &dat)
+	clarity.PrintIfError(err, "error on json unmarshal")
+}
+
 func ExampleBasicAuthorizer() {
-	authorizer := httputil.NewBasicAuthorizer(
+	authorizer := clarity.NewBasicAuthorizer(
 		os.Getenv("USERNAME"),
 		os.Getenv("PASSWORD"),
 	)
@@ -31,12 +46,12 @@ func ExampleRequestBody() {
 	bodyJSON, _ := json.Marshal(data)
 	request, _ := http.NewRequest("POST", "http://localhost", bytes.NewBuffer(bodyJSON))
 	var body interface{}
-	err := httputil.RequestBody(request.Body, &body)
+	err := clarity.RequestBody(request.Body, &body)
 	fmt.Println(body, err)
 }
 
 func ExampleRequestParam() {
 	URL, _ := url.Parse("http://localhost?key=value")
-	key := httputil.RequestParam(URL, "key", "default").(string)
+	key := clarity.RequestParam(URL, "key", "default").(string)
 	fmt.Println(key)
 }
