@@ -1,4 +1,4 @@
-package httputil
+package clarity
 
 import (
 	"encoding/base64"
