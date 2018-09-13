@@ -6,21 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMapJoin(t *testing.T) {
-	a := map[string]string{
-		"first name": "andrys",
-		"last name":  "silalahi",
-	}
-	b := map[string]string{
-		"github":    "andrysds",
-		"instagram": "andrysds_",
-	}
-	c := map[string]string{
-		"first name": "andrys",
-		"last name":  "silalahi",
-		"github":     "andrysds",
-		"instagram":  "andrysds_",
-	}
-	d := MapJoin(a, b)
-	assert.Equal(t, c, d)
+func TestAtoi(t *testing.T) {
+	// error
+	assert.Equal(t, 0, Atoi("clarity"))
+
+	// normal
+	assert.Equal(t, 1, Atoi("1"))
 }
