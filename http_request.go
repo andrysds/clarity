@@ -24,6 +24,9 @@ func RequestParam(URL *url.URL, key string, defaultValue interface{}) interface{
 		case int:
 			intValue, _ := strconv.Atoi(value)
 			return intValue
+		case int64:
+			int64Value, _ := strconv.ParseInt(value, 10, 64)
+			return int64Value
 		case []string:
 			return strings.Split(value, ",")
 		}

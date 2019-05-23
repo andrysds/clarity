@@ -12,11 +12,12 @@ import (
 
 func TestRequestParamTest(t *testing.T) {
 	var result interface{}
-	URL, _ := url.Parse("http://localhost?key=value&number=1&array[]=elem1,elem2")
+	URL, _ := url.Parse("http://localhost?key=value&number=1&long_number=10&array[]=elem1,elem2")
 	defaults := map[string]interface{}{
-		"s": "default",
-		"i": 0,
-		"a": []string{"default"},
+		"s":   "default",
+		"i":   0,
+		"i64": int64(0),
+		"a":   []string{"default"},
 	}
 
 	// context: missing param
@@ -27,6 +28,10 @@ func TestRequestParamTest(t *testing.T) {
 	// int param
 	result = RequestParam(URL, "miss", defaults["i"]).(int)
 	assert.Equal(t, result, defaults["i"])
+
+	// int64 param
+	result = RequestParam(URL, "miss", defaults["i64"]).(int64)
+	assert.Equal(t, result, defaults["i64"])
 
 	// array param
 	result = RequestParam(URL, "miss", defaults["a"]).([]string)
@@ -40,6 +45,10 @@ func TestRequestParamTest(t *testing.T) {
 	// int param
 	result = RequestParam(URL, "number", defaults["i"]).(int)
 	assert.Equal(t, result, 1)
+
+	// int64 param
+	result = RequestParam(URL, "long_number", defaults["i64"]).(int64)
+	assert.Equal(t, result, int64(10))
 
 	// array param
 	result = RequestParam(URL, "array", defaults["a"]).([]string)
