@@ -22,11 +22,17 @@ func RequestParam(URL *url.URL, key string, defaultValue interface{}) interface{
 		case string:
 			return value
 		case int:
-			intValue, _ := strconv.Atoi(value)
-			return intValue
+			if intValue, err := strconv.Atoi(value); err != nil {
+				return defaultValue
+			} else {
+				return intValue
+			}
 		case int64:
-			int64Value, _ := strconv.ParseInt(value, 10, 64)
-			return int64Value
+			if int64Value, err := strconv.ParseInt(value, 10, 64); err != nil {
+				return int64Value
+			} else {
+				return int64Value
+			}
 		case []string:
 			return strings.Split(value, ",")
 		}
